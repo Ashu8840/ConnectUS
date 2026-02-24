@@ -65,7 +65,11 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.WithOrigins("http://localhost:4200", "https://localhost:4200")
+        policy.WithOrigins(
+                "http://localhost:4200",
+                "https://localhost:4200",
+                "https://connectus-frontend.onrender.com"
+            )
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
@@ -111,11 +115,11 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// Auto-migrate database
+// Auto-migrate database on startup
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    db.Database.EnsureCreated();
+    db.Database.Migrate();
 }
 
 // Swagger (available in all environments for testing)
