@@ -65,11 +65,11 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.WithOrigins(
-                "http://localhost:4200",
-                "https://localhost:4200",
-                "https://connectus-frontend.onrender.com"
-            )
+        policy.SetIsOriginAllowed(origin =>
+            origin.StartsWith("http://localhost") ||
+            origin.StartsWith("https://localhost") ||
+            origin.EndsWith(".vercel.app") ||
+            origin.EndsWith(".onrender.com"))
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials();
