@@ -164,11 +164,11 @@ namespace ConnectUS.API.Data
                 Id = 1,
                 Username = "admin",
                 Email = "admin@connectus.com",
-                PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin@123"),
+                PasswordHash = "$2a$11$KOe6HNKYNLmrkiAWCAVIL.r6jNqX0lW7FY7TlqniK6Mw8e1y9eZqi", // Admin@123
                 FullName = "System Admin",
                 Role = "Admin",
                 About = "ConnectUS Administrator",
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc)
             });
         }
     }

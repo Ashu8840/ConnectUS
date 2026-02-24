@@ -11,9 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Database
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? "Server=localhost;Database=ConnectUS;User=root;Password=Ayush@8840;";
+    ?? "Host=dpg-d6eimdbuibrs73ddb0m0-a.oregon-postgres.render.com;Database=db_eh22;Username=db_eh22_user;Password=fcCFQldkxfIfgYsihilSkcLLgB44cjIS;SSL Mode=Require;Trust Server Certificate=true";
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+    options.UseNpgsql(connectionString)
+           .ConfigureWarnings(w => w.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning)));
 
 // JWT Authentication
 var jwtKey = builder.Configuration["Jwt:Key"] ?? "ConnectUS_Super_Secret_Key_2026_Very_Long_Key_For_Security_256bit!";
